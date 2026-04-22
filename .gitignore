@@ -1,0 +1,10 @@
+.vscode/
+*.log
+*.tmp
+*.exe
+*.dll
+*.obj
+.venv/
+__pycache__/
+*.pyc
+*.sql
