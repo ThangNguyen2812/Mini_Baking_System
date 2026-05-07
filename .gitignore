@@ -51,10 +51,4 @@ obj/
 .DS_Store
 Thumbs.db
 
-# Sensitive data and databases
-data/accounts.txt
-data/transactions.txt
-.env
-.env.local
-credentials.txt
-config.txt
+
