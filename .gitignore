@@ -1,0 +1,60 @@
+# Executables
+*.exe
+*.out
+*.app
+
+# Object files
+*.o
+*.obj
+*.ko
+*.so
+*.so.*
+*.dylib
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Compiled source
+*.gch
+*.su
+*.pdb
+
+# Dependencies
+*.d
+*.depend
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Build directories
+build/
+dist/
+bin/
+obj/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# OS-specific
+*.swp
+.DS_Store
+Thumbs.db
+
+# Sensitive data and databases
+data/accounts.txt
+data/transactions.txt
+.env
+.env.local
+credentials.txt
+config.txt
