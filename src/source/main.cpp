@@ -93,7 +93,7 @@ int promptInt(const string& prompt) {
             return value;
         }
 
-        cout << "✗ Invalid input! Please enter a number.\n";
+        cout << "Invalid input! Please enter a number.\n";
         clearInputLine();
     }
 }
@@ -109,7 +109,7 @@ double promptDouble(const string& prompt) {
             return value;
         }
 
-        cout << "✗ Invalid input! Please enter a valid amount.\n";
+        cout << "Invalid input! Please enter a valid amount.\n";
         clearInputLine();
     }
 }
@@ -122,7 +122,7 @@ void createNewAccount(Bank& bank) { // Handle account creation with input valida
 
         int id = promptInt("\nEnter Account ID: \n");
         if (bank.accountExists(id)) {
-            cout << "✗ Error: Account with this ID already exists.\n";
+            cout << "Error: Account with this ID already exists.\n";
             pauseForEnter();
             continue;
         }
@@ -132,7 +132,7 @@ void createNewAccount(Bank& bank) { // Handle account creation with input valida
         getline(cin, name);
 
         if (!isValidAccountName(name)) {
-            cout << "✗ Error: Account name must not be empty and cannot contain numbers.\n";
+            cout << "Error: Account name must not be empty and cannot contain numbers.\n";
             pauseForEnter();
             continue;
         }
@@ -146,12 +146,12 @@ void createNewAccount(Bank& bank) { // Handle account creation with input valida
                 break;
             }
 
-            cout << "✗ Error: PIN must be at least 4 digits.\n";
+            cout << "Error: PIN must be at least 4 digits.\n";
         }
 
         double balance = promptDouble("\nEnter Initial Balance: $\n");
         if (balance < 0) {
-            cout << "✗ Error: Initial balance cannot be negative.\n";
+            cout << "Error: Initial balance cannot be negative.\n";
             pauseForEnter();
             continue;
         }
@@ -272,13 +272,13 @@ void changeAccountInfo(Bank& bank, Account* currentUser) { // Handle account inf
         try {
             if (bank.updateAccountInfo(currentUser->getId(), newName, newPin, changeName, changePin)) {
                 currentUser = bank.findAccount(currentUser->getId());
-                cout << "✓ Account information updated successfully!\n";
+                cout << "Account information updated successfully!\n";
                 pauseForEnter();
                 clearScreen();
                 return;
             }
         } catch (const exception& e) {
-            cout << "✗ Error: " << e.what() << "\n";
+            cout << "Error: " << e.what() << "\n";
             pauseForEnter();
         }
     }
@@ -293,7 +293,7 @@ void handleUserMenu(Bank& bank, Account* currentUser) {
 
         if (!(cin >> mainChoice)) {
             clearInputLine();
-            cout << "✗ Invalid input! Please enter a number.\n";
+            cout << "Invalid input! Please enter a number.\n";
             continue;
         }
         clearInputLine();
@@ -306,7 +306,7 @@ void handleUserMenu(Bank& bank, Account* currentUser) {
                 double amount = promptDouble("\nEnter Amount: $\n");
 
                 while (amount <= 0) {
-                    cout << "✗ Error: Deposit amount must be positive.\n";
+                    cout << "Error: Deposit amount must be positive.\n";
                     amount = promptDouble("\nEnter Amount: $\n");
                 }
 
@@ -323,7 +323,7 @@ void handleUserMenu(Bank& bank, Account* currentUser) {
                 double amount = promptDouble("\nEnter Amount: $\n");
 
                 while (amount <= 0) {
-                    cout << "✗ Error: Withdraw amount must be positive.\n";
+                    cout << "Error: Withdraw amount must be positive.\n";
                     amount = promptDouble("\nEnter Amount: $\n");
                 }
 
@@ -341,11 +341,11 @@ void handleUserMenu(Bank& bank, Account* currentUser) {
                 while (true) {
                     toId = promptInt("\nEnter Recipient Account ID: \n");
                     if (toId == currentUser->getId()) {
-                        cout << "✗ Error: Cannot transfer to the same account.\n";
+                        cout << "Error: Cannot transfer to the same account.\n";
                         continue;
                     }
                     if (bank.findAccount(toId) == nullptr) {
-                        cout << "✗ Error: Destination account not found.\n";
+                        cout << "Error: Destination account not found.\n";
                         continue;
                     }
                     break;
@@ -354,7 +354,7 @@ void handleUserMenu(Bank& bank, Account* currentUser) {
                 double amount = promptDouble("\nEnter Amount: $\n");
 
                 while (amount <= 0) {
-                    cout << "✗ Error: Transfer amount must be positive.\n";
+                    cout << "Error: Transfer amount must be positive.\n";
                     amount = promptDouble("\nEnter Amount: $\n");
                 }
 
@@ -398,7 +398,7 @@ void handleUserMenu(Bank& bank, Account* currentUser) {
             }
 
             default:
-                cout << "✗ Invalid choice! Please try again.\n";
+                cout << "Invalid choice! Please try again.\n";
         }
     }
 }
@@ -412,7 +412,7 @@ void handleAdminMenu(Bank& bank, Account* currentUser) {
 
         if (!(cin >> adminChoice)) {
             clearInputLine();
-            cout << "✗ Invalid input! Please enter a number.\n";
+            cout << "Invalid input! Please enter a number.\n";
             continue;
         }
         clearInputLine();
@@ -468,7 +468,7 @@ void handleAdminMenu(Bank& bank, Account* currentUser) {
             }
 
             default:
-                cout << "✗ Invalid choice! Please try again.\n";
+                cout << "Invalid choice! Please try again.\n";
         }
     }
 }
@@ -495,7 +495,7 @@ int main() {
             // Input validation
             if (!(cin >> authChoice)) {
                 clearInputLine();
-                cout << "✗ Invalid input! Please enter a number.\n";
+                cout << "Invalid input! Please enter a number.\n";
                 continue;
             }
             clearInputLine();
@@ -526,7 +526,7 @@ int main() {
                 }
 
                 default:
-                    cout << "✗ Invalid choice! Please try again.\n";
+                    cout << "Invalid choice! Please try again.\n";
             }
         } 
         else {

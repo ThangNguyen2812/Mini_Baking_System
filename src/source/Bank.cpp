@@ -26,7 +26,7 @@ void Bank::loadFromFile() {
     loadAccountsFromFile();
     loadTransactionsFromFile();
     ensureAdminAccount();
-    cout << "✓ Data loaded from files!\n";
+    cout << "Data loaded from files!\n";
 }
 
 void Bank::saveToFile() {
@@ -42,7 +42,7 @@ void Bank::ensureAdminAccount() {
 
     try {
         accounts.push_back(Account(ADMIN_ACCOUNT_ID, ADMIN_ACCOUNT_NAME, 0.0, ADMIN_ACCOUNT_PIN));
-        cout << "! Admin account created with ID 10 and default PIN 1234.\n";
+        cout << "Admin account created with ID 10 and default PIN 1234.\n";
     } catch (const exception& e) {
         cerr << "Error creating admin account: " << e.what() << "\n";
     }
@@ -151,10 +151,10 @@ void Bank::createAccount(int id, string name, double initialBalance, string pin)
         }
 
         accounts.push_back(Account(id, name, initialBalance, pin));
-        cout << "✓ Account created successfully!\n";
+        cout << "Account created successfully!\n";
 
     } catch (const exception& e) {
-        cerr << "✗ Error: " << e.what() << "\n";
+        cerr << "Error: " << e.what() << "\n";
     }
 }
 
@@ -215,7 +215,7 @@ Account* Bank::login(int id, string pin) {
         return acc;
 
     } catch (const exception& e) {
-        cerr << "✗ Login failed: " << e.what() << "\n";
+        cerr << "Login failed: " << e.what() << "\n";
         return nullptr;
     }
 }
@@ -242,7 +242,7 @@ bool Bank::updateAccountInfo(int id, const string& newName, const string& newPin
         saveAccountsToFile();
         return true;
     } catch (const exception& e) {
-        cerr << "✗ Error: " << e.what() << "\n";
+        cerr << "Error: " << e.what() << "\n";
         return false;
     }
 }
@@ -285,7 +285,7 @@ void Bank::deposit(int accountId, double amount, string pin) {
              << acc->getBalance() << "\n";
 
     } catch (const exception& e) {
-        cerr << "✗ Error: " << e.what() << "\n";
+        cerr << "Error: " << e.what() << "\n";
         transactions.push_back(Transaction(accountId, accountId, amount, 
                                           Transaction::DEPOSIT, false));
     }
@@ -318,7 +318,7 @@ void Bank::withdraw(int accountId, double amount, string pin) {
              << acc->getBalance() << "\n";
 
     } catch (const exception& e) {
-        cerr << "✗ Error: " << e.what() << "\n";
+        cerr << "Error: " << e.what() << "\n";
         transactions.push_back(Transaction(accountId, accountId, amount, 
                                           Transaction::WITHDRAW, false));
     }
@@ -364,14 +364,14 @@ void Bank::transfer(int fromId, int toId, double amount, string fromPin) {
         transactions.push_back(Transaction(fromId, toId, amount, 
                                           Transaction::TRANSFER, true));
 
-        cout << " Transfer successful!\n";
+        cout << "Transfer successful!\n";
         cout << "  From: " << fromAcc->getName() << " -> New Balance: $" 
              << fixed << setprecision(2) << fromAcc->getBalance() << "\n";
         cout << "  To: " << toAcc->getName() << " -> New Balance: $" 
              << fixed << setprecision(2) << toAcc->getBalance() << "\n";
 
     } catch (const exception& e) {
-        cerr << " Error: " << e.what() << "\n";
+        cerr << "Error: " << e.what() << "\n";
         transactions.push_back(Transaction(fromId, toId, amount, 
                                           Transaction::TRANSFER, false));
     }
