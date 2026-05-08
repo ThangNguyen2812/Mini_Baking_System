@@ -76,6 +76,7 @@ Build & run tests (one-time configure only required when you change CMake):
 cmake -S . -B build-tests -G Ninja -DCMAKE_CXX_COMPILER=C:/msys64/ucrt64/bin/g++.exe -DCMAKE_PREFIX_PATH=C:/msys64/ucrt64
 cmake --build build-tests
 ctest --test-dir build-tests --output-on-failure
+ctest --test-dir build-tests -R AccountTest --output-on-failure
 ```
 
 Run a single test suite or case (from project root):

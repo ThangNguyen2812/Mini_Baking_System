@@ -27,6 +27,14 @@ protected:
     }
 };
 
+TEST_F(BankTest, UnavailbleAccountReturnsNullptr) {
+    Bank bank;
+    bank.loadFromFile();
+
+    EXPECT_EQ(bank.findAccount(999), nullptr);
+    EXPECT_EQ(bank.findAccount("NonExistent"), nullptr);
+}
+
 TEST_F(BankTest, LoadFromFileAddsAccountsAndAdmin) {
     Bank bank;
 
