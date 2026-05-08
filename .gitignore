@@ -40,6 +40,18 @@ build/
 dist/
 bin/
 obj/
+build-tests/
+Testing/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+ninja.build
+
+# Test binaries
+bank_tests.exe
+banking_system.exe
 
 # Temporary files
 *.tmp
@@ -50,5 +62,10 @@ obj/
 *.swp
 .DS_Store
 Thumbs.db
+
+# Sensitive project data
+src/data/accounts.txt
+src/data/transactions.txt
+
 
 

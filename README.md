@@ -16,30 +16,98 @@ Hệ thống ngân hàng mini được xây dựng bằng C++ với đầy đủ
 
 ```
 banking_system/
-├── Account.h              # Header file cho class Account
-├── Account.cpp            # Implementation của Account
-├── Transaction.h          # Header file cho class Transaction
-├── Transaction.cpp        # Implementation của Transaction
-├── Bank.h                 # Header file cho class Bank
-├── Bank.cpp               # Implementation của Bank (phần 1)
-├── Bank2.cpp              # Implementation của Bank (phần 2)
-├── Bank3.cpp              # Implementation của Bank (phần 3)
-├── main.cpp               # Main program
-├── Makefile               # Build file
-├── accounts.txt           # Database: Tài khoản
-├── transactions.txt       # Database: Giao dịch
-└── README.md              # File này
+├── CMakeLists.txt
+├── README.md
+├── .gitignore
+├── src/
+│   ├── build.bat
+│   ├── include/
+│   │   ├── Account.h
+│   │   ├── Bank.h
+│   │   └── Transaction.h
+│   ├── source/
+│   │   ├── Account.cpp
+│   │   ├── Bank.cpp
+│   │   ├── Transaction.cpp
+│   │   └── main.cpp
+│   └── data/
+│       ├── accounts.txt
+│       └── transactions.txt
+└── tests/
+    ├── test_account.cpp
+    ├── test_bank.cpp
+    └── test_transaction.cpp
 ```
 
 ---
 
 ## 🛠️ Cài đặt & Chạy
 
-### Compile thủ công 
+### Build ứng dụng
 ```bash
-g++ -std=c++17 -o banking_system *.cpp
-./banking_system
+cmake -S . -B build-tests -G Ninja -DCMAKE_CXX_COMPILER=C:/msys64/ucrt64/bin/g++.exe -DCMAKE_PREFIX_PATH=C:/msys64/ucrt64
+cmake --build build-tests
 ```
+
+### Chạy ứng dụng
+```bash
+.\build-tests\banking_system.exe
+```
+
+### Chạy test tự động
+```bash
+ctest --test-dir build-tests --output-on-failure
+```
+
+### Chạy từng nhóm test
+```bash
+.\build-tests\bank_tests.exe --gtest_filter=AccountTest.*
+.\build-tests\bank_tests.exe --gtest_filter=BankTest.*
+.\build-tests\bank_tests.exe --gtest_filter=TransactionTest.*
+```
+
+### Quick Instructions
+
+Prerequisites:
+- MSYS2 with `mingw-w64-ucrt-x86_64-gcc`, `cmake`, `ninja`, and `gtest` installed (or equivalent toolchain).
+
+Build & run tests (one-time configure only required when you change CMake):
+```powershell
+cmake -S . -B build-tests -G Ninja -DCMAKE_CXX_COMPILER=C:/msys64/ucrt64/bin/g++.exe -DCMAKE_PREFIX_PATH=C:/msys64/ucrt64
+cmake --build build-tests
+ctest --test-dir build-tests --output-on-failure
+```
+
+Run a single test suite or case (from project root):
+```powershell
+cd build-tests
+.\bank_tests.exe --gtest_filter=AccountTest.*                      # run all account tests
+.\bank_tests.exe --gtest_filter=AccountTest.UpdateNameAndPin       # run one test case
+```
+
+Add a new test file:
+1. Create `tests/test_*.cpp` with GoogleTest `TEST` cases.
+2. Add the file to `CMakeLists.txt` under the `bank_tests` sources (or update CMake to glob the `tests/` folder).
+3. Re-run the CMake configure step (see build command above) if you modified `CMakeLists.txt`.
+
+---
+
+## 🧪 Test Automation với GoogleTest
+
+Project hiện có 3 file test chính:
+- [tests/test_account.cpp](tests/test_account.cpp)
+- [tests/test_bank.cpp](tests/test_bank.cpp)
+- [tests/test_transaction.cpp](tests/test_transaction.cpp)
+
+Các test này kiểm tra:
+- deposit/withdraw và validation của account
+- login, transfer, update account info, persistence
+- transaction type string, success flag, formatted time
+
+Khi bạn chỉ sửa nội dung test trong một file hiện có, thường chỉ cần build lại và chạy lại `ctest`. Chỉ cần chạy lại CMake configure khi:
+- thêm file test mới
+- sửa [CMakeLists.txt](CMakeLists.txt)
+- đổi compiler hoặc dependency setup
 
 ---
 
